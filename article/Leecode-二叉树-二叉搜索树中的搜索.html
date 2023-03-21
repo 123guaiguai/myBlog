@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.7.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.7.0" type="image/png" sizes="32x32"><meta name="description" content="描述       给定二叉搜索树（BST）的根节点和一个值。 你需要在BST中找到节点值等于给定值的节点。 返回以该节点为根的子树。 如果节点不存在，则返回 NULL。 例如，  在上述示例中，如果要找的值是 5，但因为没有节点值为 5，我们应该返回 NULL。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leecode 二叉树 二叉搜索树中的搜索">
+<meta property="og:url" content="https://myblog-eta-three.vercel.app/article/Leecode-%E4%BA%8C%E5%8F%89%E6%A0%91-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2.html">
+<meta property="og:site_name" content="行者一路">
+<meta property="og:description" content="描述       给定二叉搜索树（BST）的根节点和一个值。 你需要在BST中找到节点值等于给定值的节点。 返回以该节点为根的子树。 如果节点不存在，则返回 NULL。 例如，  在上述示例中，如果要找的值是 5，但因为没有节点值为 5，我们应该返回 NULL。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://camo.githubusercontent.com/33e106c9c430604758f3fa418155667fc298374c078b4612370f8bbc6166d87e/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303231303230343135353532323437362e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/303de4addaae694267b7535be0472dfa1434d3587d20a365b799adc0fa551415/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303230303831323139303231333238302e706e67">
+<meta property="article:published_time" content="2023-03-13T08:15:54.000Z">
+<meta property="article:modified_time" content="2023-03-13T09:11:44.037Z">
+<meta property="article:author" content="高琪">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/33e106c9c430604758f3fa418155667fc298374c078b4612370f8bbc6166d87e/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303231303230343135353532323437362e706e67"><title>Leecode 二叉树 二叉搜索树中的搜索 | 行者一路</title><link ref="canonical" href="https://myblog-eta-three.vercel.app/article/Leecode-%E4%BA%8C%E5%8F%89%E6%A0%91-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.7.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.2"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">行者一路</div><div class="header-banner-info__subtitle">我的博客记录</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Leecode 二叉树 二叉搜索树中的搜索</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2023-03-13</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2023-03-13</span></span></div></header><div class="post-body">
+        <h3 id="描述"   >
+          <a href="#描述" class="heading-link"><i class="fas fa-link"></i></a><a href="#描述" class="headerlink" title="描述"></a>描述</h3>
+      <p>给定二叉搜索树（BST）的根节点和一个值。 你需要在BST中找到节点值等于给定值的节点。 返回以该节点为根的子树。 如果节点不存在，则返回 NULL。</p>
+<p>例如，</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/33e106c9c430604758f3fa418155667fc298374c078b4612370f8bbc6166d87e/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303231303230343135353532323437362e706e67"><img src="https://camo.githubusercontent.com/33e106c9c430604758f3fa418155667fc298374c078b4612370f8bbc6166d87e/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303231303230343135353532323437362e706e67" alt="700.二叉搜索树中的搜索" style="zoom:50%;" /></a></p>
+<p>在上述示例中，如果要找的值是 5，但因为没有节点值为 5，我们应该返回 NULL。</p>
+<span id="more"></span>
+
+
+        <h3 id="思路"   >
+          <a href="#思路" class="heading-link"><i class="fas fa-link"></i></a><a href="#思路" class="headerlink" title="思路"></a>思路</h3>
+      <p>二叉搜索树是一个有序树：</p>
+<ul>
+<li>若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值；</li>
+<li>若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值；</li>
+<li>它的左、右子树也分别为二叉搜索树</li>
+</ul>
+<p>这就决定了，二叉搜索树，递归遍历和迭代遍历和普通二叉树都不一样。</p>
+<p>本题，其实就是在二叉搜索树中搜索一个节点。那么我们来看看应该如何遍历。</p>
+<p>对二叉搜索树的遍历也可以分为递归法与遍历法。</p>
+
+        <h4 id="递归法"   >
+          <a href="#递归法" class="heading-link"><i class="fas fa-link"></i></a><a href="#递归法" class="headerlink" title="递归法"></a>递归法</h4>
+      <ol>
+<li>确定递归函数的参数和返回值</li>
+</ol>
+<p>递归函数的参数传入的就是根节点和要搜索的数值，返回的就是以这个搜索数值所在的节点。</p>
+<p>代码如下：</p>
+<figure class="highlight tsx"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">searchBST</span>(<span class="params">root:TreeNode, val:<span class="built_in">number</span></span>)</span><br></pre></td></tr></table></div></figure>
+
+<ol>
+<li>确定终止条件</li>
+</ol>
+<p>如果root为空，或者找到这个数值了，就返回root节点。</p>
+<figure class="highlight tsx"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (root === <span class="literal">null</span> || root.<span class="property">val</span> === val) <span class="keyword">return</span> root;</span><br></pre></td></tr></table></div></figure>
+
+<ol>
+<li>确定单层递归的逻辑</li>
+</ol>
+<p>看看二叉搜索树的单层递归逻辑有何不同。</p>
+<p>因为二叉搜索树的节点是有序的，所以可以有方向的去搜索。</p>
+<p>如果root.val &gt; val，搜索左子树，如果root.val &lt; val，就搜索右子树，最后如果都没有搜索到，就返回null。</p>
+<p>代码如下：</p>
+<figure class="highlight tsx"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="attr">result</span>:<span class="title class_">TreeNode</span>|<span class="literal">null</span>;</span><br><span class="line"><span class="keyword">if</span> (root.<span class="property">val</span> &gt; val) result = <span class="title function_">searchBST</span>(root.<span class="property">left</span>, val);</span><br><span class="line"><span class="keyword">if</span> (root.<span class="property">val</span> &lt; val) result = <span class="title function_">searchBST</span>(root.<span class="property">right</span>, val);</span><br><span class="line"><span class="keyword">return</span> result;</span><br></pre></td></tr></table></div></figure>
+
+<p>很多录友写递归函数的时候 习惯直接写 <code>searchBST(root.left, val)</code>，却忘了 递归函数还有返回值。</p>
+<p>递归函数的返回值是什么? 是 左子树如果搜索到了val，要将该节点返回。 如果不用一个变量将其接住，那么返回值不就没了。</p>
+<p>所以要 <code>result = searchBST(root.left, val)</code>。</p>
+<p>整体代码如下：</p>
+<figure class="highlight tsx"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">searchBST</span>(<span class="params">root:TreeNode|<span class="literal">null</span>, val:<span class="built_in">number</span></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (root === <span class="literal">null</span> || root.<span class="property">val</span> == val) <span class="keyword">return</span> root;</span><br><span class="line">        <span class="keyword">let</span> <span class="attr">result</span>:<span class="title class_">TreeNode</span>|<span class="literal">null</span> ;</span><br><span class="line">        <span class="keyword">if</span> (root.<span class="property">val</span> &gt; val) result = <span class="title function_">searchBST</span>(root.<span class="property">left</span>, val);</span><br><span class="line">        <span class="keyword">if</span> (root.<span class="property">val</span> &lt; val) result = <span class="title function_">searchBST</span>(root.<span class="property">right</span>, val);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="迭代法"   >
+          <a href="#迭代法" class="heading-link"><i class="fas fa-link"></i></a><a href="#迭代法" class="headerlink" title="迭代法"></a>迭代法</h3>
+      <p>一提到二叉树遍历的迭代法，可能立刻想起使用栈来模拟深度遍历，使用队列来模拟广度遍历。</p>
+<p>对于二叉搜索树可就不一样了，因为二叉搜索树的特殊性，也就是节点的有序性，可以不使用辅助栈或者队列就可以写出迭代法。</p>
+<p>对于一般二叉树，递归过程中还有回溯的过程，例如走一个左方向的分支走到头了，那么要调头，在走右分支。</p>
+<p>而<strong>对于二叉搜索树，不需要回溯的过程，因为节点的有序性就帮我们确定了搜索的方向。</strong></p>
+<p>例如要搜索元素为3的节点，<strong>我们不需要搜索其他节点，也不需要做回溯，查找的路径已经规划好了。</strong></p>
+<p>中间节点如果大于3就向左走，如果小于3就向右走，如图：</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/303de4addaae694267b7535be0472dfa1434d3587d20a365b799adc0fa551415/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303230303831323139303231333238302e706e67"><img src="https://camo.githubusercontent.com/303de4addaae694267b7535be0472dfa1434d3587d20a365b799adc0fa551415/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303230303831323139303231333238302e706e67" alt="二叉搜索树" style="zoom:50%;" /></a></p>
+<p>所以迭代法代码如下：</p>
+<figure class="highlight tsx"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">searchBST</span>(<span class="params">root:TreeNode|<span class="literal">null</span>, val:<span class="built_in">number</span></span>) &#123;</span><br><span class="line">        <span class="keyword">while</span> (root !== <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (root.<span class="property">val</span> &gt; val) root = root.<span class="property">left</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (root.<span class="property">val</span> &lt; val) root = root.<span class="property">right</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://myblog-eta-three.vercel.app">高琪</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://myblog-eta-three.vercel.app/article/Leecode-%E4%BA%8C%E5%8F%89%E6%A0%91-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2.html">https://myblog-eta-three.vercel.app/article/Leecode-%E4%BA%8C%E5%8F%89%E6%A0%91-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2.html</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/article/Leecode-%E4%BA%8C%E5%8F%89%E6%A0%91-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.html"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Leecode 二叉树 验证二叉搜索树</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/article/Leecode-%E4%BA%8C%E5%8F%89%E6%A0%91-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91.html"><span class="paginator-prev__text">Leecode 二叉树 合并二叉树</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">
+          描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">
+          思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">
+          递归法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">
+          迭代法</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://pic2.zhimg.com/v2-86116449634292f991d2b38eaf7f7509_r.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">记录点滴</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2023</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>高琪</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>
