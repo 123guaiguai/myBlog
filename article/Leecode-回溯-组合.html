@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.7.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.7.0" type="image/png" sizes="32x32"><meta name="description" content="引用自代码随想录                     描述       给定两个整数 n 和 k，返回 1 … n 中所有可能的 k 个数的组合。 示例: 输入: n &#x3D; 4, k &#x3D; 2 输出: [ [2,4], [3,4], [2,3], [1,2], [1,3], [1,4], ]                     思路       以题目实例为例，我们自然可以想到用多层for循环">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leecode 回溯 组合">
+<meta property="og:url" content="https://myblog-eta-three.vercel.app/article/Leecode-%E5%9B%9E%E6%BA%AF-%E7%BB%84%E5%90%88.html">
+<meta property="og:site_name" content="行者一路">
+<meta property="og:description" content="引用自代码随想录                     描述       给定两个整数 n 和 k，返回 1 … n 中所有可能的 k 个数的组合。 示例: 输入: n &#x3D; 4, k &#x3D; 2 输出: [ [2,4], [3,4], [2,3], [1,2], [1,3], [1,4], ]                     思路       以题目实例为例，我们自然可以想到用多层for循环">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://camo.githubusercontent.com/d33b0c763bb110a892f1a7edcf0465f743d951e9709b325f0bff7b2076969eca/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303230313132333139353232333934302e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/932e840728dcfd28785a2bfd54241d5f899f8969db0787f964b087c25e48e362/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303230313132333139353332383937362e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/63f4077f082ba18f134e3e9eeb083409b6729204a6439f7a1cd7dcd281cf57ea/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303230313132333139353430373930372e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/f8b8bec488f2b60d3c81d96391f3c6adce3dba237005a3e9f0a512a0d18aac11/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303230313132333139353234323839392e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/43229e97bc3f4d6202a2f37e8d152208bc82c899ade16a6e761ff397fb0dad03/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303231303133303139343333353230372d32303233303331303133343430393533322e706e67">
+<meta property="article:published_time" content="2023-04-03T08:24:49.000Z">
+<meta property="article:modified_time" content="2023-04-04T10:03:10.416Z">
+<meta property="article:author" content="高琪">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/d33b0c763bb110a892f1a7edcf0465f743d951e9709b325f0bff7b2076969eca/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303230313132333139353232333934302e706e67"><title>Leecode 回溯 组合 | 行者一路</title><link ref="canonical" href="https://myblog-eta-three.vercel.app/article/Leecode-%E5%9B%9E%E6%BA%AF-%E7%BB%84%E5%90%88.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.7.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.2"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">行者一路</div><div class="header-banner-info__subtitle">我的博客记录</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Leecode 回溯 组合</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2023-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2023-04-04</span></span></div></header><div class="post-body"><p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/youngyangyang04/leetcode-master" >引用自代码随想录</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h3 id="描述"   >
+          <a href="#描述" class="heading-link"><i class="fas fa-link"></i></a><a href="#描述" class="headerlink" title="描述"></a>描述</h3>
+      <p>给定两个整数 n 和 k，返回 1 … n 中所有可能的 k 个数的组合。</p>
+<p>示例: 输入: n = 4, k = 2 输出: [ [2,4], [3,4], [2,3], [1,2], [1,3], [1,4], ]</p>
+
+        <h3 id="思路"   >
+          <a href="#思路" class="heading-link"><i class="fas fa-link"></i></a><a href="#思路" class="headerlink" title="思路"></a>思路</h3>
+      <p>以题目实例为例，我们自然可以想到用多层for循环来实现暴力解答，比如k=2时就是用两层for循环</p>
+<figure class="highlight ts"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> n = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="property">log</span>...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<span id="more"></span>
+
+<p>如果k=3，那么就是三层循环，如果k=50，那么就是50层for循环…这显然是不行的，使用for循环的暴力破解失败了，我们这个时候就可以引入回溯来解决组合问题了，回溯问题其实本质就是递归问题，所以其实回溯问题的性能也不会太好，因为也是暴力穷举，即使使用剪枝也不会好的哪里去，但是有的时候就是没办法，不使用回溯就是做不出来，还考虑性能？</p>
+<p>递归来做层叠嵌套（可以理解是开k层for循环），<strong>每一次的递归中嵌套一个for循环，那么递归就可以用于解决多层嵌套循环的问题了</strong>。</p>
+<p>此时递归的层数大家应该知道了，例如：n为100，k为50的情况下，就是递归50层。</p>
+<p>一些同学本来对递归就懵，回溯法中递归还要嵌套for循环，可能就直接晕倒了！</p>
+<p>如果脑洞模拟回溯搜索的过程，绝对可以让人窒息，所以需要抽象图形结构来进一步理解。</p>
+<p><strong>回溯法解决的问题都可以抽象为树形结构（N叉树），用树形结构来理解回溯就容易多了</strong>。</p>
+<p>那么把组合问题抽象为如下树形结构：</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/d33b0c763bb110a892f1a7edcf0465f743d951e9709b325f0bff7b2076969eca/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303230313132333139353232333934302e706e67"><img src="https://camo.githubusercontent.com/d33b0c763bb110a892f1a7edcf0465f743d951e9709b325f0bff7b2076969eca/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303230313132333139353232333934302e706e67" alt="77.组合"></a></p>
+<p>可以看出这棵树，一开始集合是 1，2，3，4， 从左向右取数，取过的数，不再重复取。</p>
+<p>第一次取1，集合变为2，3，4 ，因为k为2，我们只需要再取一个数就可以了，分别取2，3，4，得到集合[1,2] [1,3] [1,4]，以此类推。</p>
+<p><strong>每次从集合中选取元素，可选择的范围随着选择的进行而收缩，调整可选择的范围</strong>。</p>
+<p><strong>图中可以发现n相当于树的宽度，k相当于树的深度</strong>。</p>
+<p>那么如何在这个树上遍历，然后收集到我们要的结果集呢？</p>
+<p><strong>图中每次搜索到了叶子节点，我们就找到了一个结果</strong>。</p>
+<p>相当于只需要把达到叶子节点的结果收集起来，就可以求得 n个数中k个数的组合集合。</p>
+<p>按照回溯法三部曲开始正式讲解代码。</p>
+
+        <h4 id="回溯法三部曲"   >
+          <a href="#回溯法三部曲" class="heading-link"><i class="fas fa-link"></i></a><a href="#回溯法三部曲" class="headerlink" title="回溯法三部曲"></a>回溯法三部曲</h4>
+      <ul>
+<li>递归函数的返回值以及参数</li>
+</ul>
+<p>在这里要定义两个全局变量，一个用来存放符合条件单一结果，一个用来存放符合条件结果的集合。</p>
+<p>代码如下：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;int&gt;&gt; result; // 存放符合条件结果的集合</span><br><span class="line">vector&lt;int&gt; path; // 用来存放符合条件结果</span><br></pre></td></tr></table></div></figure>
+
+<p>其实不定义这两个全局变量也是可以的，把这两个变量放进递归函数的参数里，但函数里参数太多影响可读性，所以我定义全局变量了。</p>
+<p>函数里一定有两个参数，既然是集合n里面取k个数，那么n和k是两个int型的参数。</p>
+<p>然后还需要一个参数，为int型变量startIndex，这个参数用来记录本层递归的中，集合从哪里开始遍历（集合就是[1,…,n] ）。</p>
+<p>为什么要有这个startIndex呢？</p>
+<p><strong>startIndex 就是防止出现重复的组合</strong>。</p>
+<p>从下图中红线部分可以看出，在集合[1,2,3,4]取1之后，下一层递归，就要在[2,3,4]中取数了，那么下一层递归如何知道从[2,3,4]中取数呢，靠的就是startIndex。</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/932e840728dcfd28785a2bfd54241d5f899f8969db0787f964b087c25e48e362/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303230313132333139353332383937362e706e67"><img src="https://camo.githubusercontent.com/932e840728dcfd28785a2bfd54241d5f899f8969db0787f964b087c25e48e362/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303230313132333139353332383937362e706e67" alt="77.组合2"></a></p>
+<p>所以需要startIndex来记录下一层递归，搜索的起始位置。</p>
+<p>那么整体代码如下：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;int&gt;&gt; result; // 存放符合条件结果的集合</span><br><span class="line">vector&lt;int&gt; path; // 用来存放符合条件单一结果</span><br><span class="line">void backtracking(int n, int k, int startIndex)</span><br></pre></td></tr></table></div></figure>
+
+<ul>
+<li>回溯函数终止条件</li>
+</ul>
+<p>什么时候到达所谓的叶子节点了呢？</p>
+<p>path这个数组的大小如果达到k，说明我们找到了一个子集大小为k的组合了，在图中path存的就是根节点到叶子节点的路径。</p>
+<p>如图红色部分：</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/63f4077f082ba18f134e3e9eeb083409b6729204a6439f7a1cd7dcd281cf57ea/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303230313132333139353430373930372e706e67"><img src="https://camo.githubusercontent.com/63f4077f082ba18f134e3e9eeb083409b6729204a6439f7a1cd7dcd281cf57ea/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303230313132333139353430373930372e706e67" alt="77.组合3"></a></p>
+<p>此时用result二维数组，把path保存起来，并终止本层递归。</p>
+<p>所以终止条件代码如下：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if (path.size() == k) &#123;</span><br><span class="line">    result.push_back(path);</span><br><span class="line">    return;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<ul>
+<li>单层搜索的过程</li>
+</ul>
+<p>回溯法的搜索过程就是一个树型结构的遍历过程，在如下图中，可以看出for循环用来横向遍历，递归的过程是纵向遍历。</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/f8b8bec488f2b60d3c81d96391f3c6adce3dba237005a3e9f0a512a0d18aac11/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303230313132333139353234323839392e706e67"><img src="https://camo.githubusercontent.com/f8b8bec488f2b60d3c81d96391f3c6adce3dba237005a3e9f0a512a0d18aac11/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303230313132333139353234323839392e706e67" alt="77.组合1"></a></p>
+<p>如此我们才遍历完图中的这棵树。</p>
+<p>for循环每次从startIndex开始遍历，然后用path保存取到的节点i。</p>
+<p>代码如下：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (int i = startIndex; i &lt;= n; i++) &#123; // 控制树的横向遍历</span><br><span class="line">    path.push_back(i); // 处理节点</span><br><span class="line">    backtracking(n, k, i + 1); // 递归：控制树的纵向遍历，注意下一层搜索要从i+1开始</span><br><span class="line">    path.pop_back(); // 回溯，撤销处理的节点</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>可以看出backtracking（递归函数）通过不断调用自己一直往深处遍历，总会遇到叶子节点，遇到了叶子节点就要返回。</p>
+<p>backtracking的下面部分就是回溯的操作了，撤销本次处理的结果。</p>
+<p>关键地方都讲完了，组合问题C++完整代码如下：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">private:</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; result; // 存放符合条件结果的集合</span><br><span class="line">    vector&lt;int&gt; path; // 用来存放符合条件结果</span><br><span class="line">    void backtracking(int n, int k, int startIndex) &#123;</span><br><span class="line">        if (path.size() == k) &#123;</span><br><span class="line">            result.push_back(path);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = startIndex; i &lt;= n; i++) &#123;</span><br><span class="line">            path.push_back(i); // 处理节点</span><br><span class="line">            backtracking(n, k, i + 1); // 递归</span><br><span class="line">            path.pop_back(); // 回溯，撤销处理的节点</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; combine(int n, int k) &#123;</span><br><span class="line">        result.clear(); // 可以不写</span><br><span class="line">        path.clear();   // 可以不写</span><br><span class="line">        backtracking(n, k, 1);</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+
+<p>回溯法模板如下：</p>
+<p><strong>回溯算法实质就是带了for循环的递归</strong></p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">void backtracking(参数) &#123;</span><br><span class="line">    if (终止条件) &#123;</span><br><span class="line">        存放结果;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) &#123;</span><br><span class="line">        处理节点;</span><br><span class="line">        backtracking(路径，选择列表); // 递归</span><br><span class="line">        回溯，撤销处理结果</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p><strong>对比一下本题的代码，是不是发现有点像！</strong> 所以有了这个模板，就有解题的大体方向，不至于毫无头绪。</p>
+
+        <h4 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a href="#总结" class="headerlink" title="总结"></a>总结</h4>
+      <p>组合问题是回溯法解决的经典问题，我们开始的时候给大家列举一个很形象的例子，就是n为100，k为50的话，直接想法就需要50层for循环。</p>
+<p>从而引出了回溯法就是解决这种k层for循环嵌套的问题。</p>
+<p>然后进一步把回溯法的搜索过程抽象为树形结构，可以直观的看出搜索的过程。</p>
+<p>接着用回溯法三部曲，逐步分析了函数参数、终止条件和单层搜索的过程。</p>
+
+        <h4 id="剪枝优化"   >
+          <a href="#剪枝优化" class="heading-link"><i class="fas fa-link"></i></a><a href="#剪枝优化" class="headerlink" title="剪枝优化"></a>剪枝优化</h4>
+      <p>我们说过，回溯法虽然是暴力搜索，但也有时候可以有点剪枝优化一下的。</p>
+<p>在遍历的过程中有如下代码：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (int i = startIndex; i &lt;= n; i++) &#123;</span><br><span class="line">    path.push_back(i);</span><br><span class="line">    backtracking(n, k, i + 1);</span><br><span class="line">    path.pop_back();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>这个遍历的范围是可以剪枝优化的，怎么优化呢？</p>
+<p>来举一个例子，n = 4，k = 4的话，那么第一层for循环的时候，从元素2开始的遍历都没有意义了。 在第二层for循环，从元素3开始的遍历都没有意义了。</p>
+<p>这么说有点抽象，如图所示：</p>
+<img src="https://camo.githubusercontent.com/43229e97bc3f4d6202a2f37e8d152208bc82c899ade16a6e761ff397fb0dad03/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303231303133303139343333353230372d32303233303331303133343430393533322e706e67" style="zoom:50%;" />
+
+<p>图中每一个节点（图中为矩形），就代表本层的一个for循环，那么每一层的for循环从第二个数开始遍历的话，都没有意义，都是无效遍历。</p>
+<p><strong>所以，可以剪枝的地方就在递归中每一层的for循环所选择的起始位置</strong>。</p>
+<p><strong>如果for循环选择的起始位置之后的元素个数 已经不足 我们需要的元素个数了，那么就没有必要搜索了</strong>。</p>
+<p>注意代码中i，就是for循环里选择的起始位置。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for (int i = startIndex; i &lt;= n; i++) &#123;</span><br></pre></td></tr></table></div></figure>
+
+<p>接下来看一下优化过程如下：</p>
+<ol>
+<li>已经选择的元素个数：path.size();</li>
+<li>还需要的元素个数为: k - path.size();</li>
+<li>在集合n中至多要从该起始位置 : n - (k - path.size()) + 1，开始遍历</li>
+</ol>
+<p>为什么有个+1呢，因为包括起始位置，我们要是一个左闭的集合。</p>
+<p>举个例子，n = 4，k = 3， 目前已经选取的元素为0（path.size为0），n - (k - 0) + 1 即 4 - ( 3 - 0) + 1 = 2。</p>
+<p>从2开始搜索都是合理的，可以是组合[2, 3, 4]。</p>
+<p>这里大家想不懂的话，建议也举一个例子，就知道是不是要+1了。</p>
+<p>所以优化之后的for循环是：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for (int i = startIndex; i &lt;= n - (k - path.size()) + 1; i++) // i为本次搜索的起始位置</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="代码"   >
+          <a href="#代码" class="heading-link"><i class="fas fa-link"></i></a><a href="#代码" class="headerlink" title="代码"></a>代码</h3>
+      <figure class="highlight tsx"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">combine</span>(<span class="params">n: <span class="built_in">number</span>, k: <span class="built_in">number</span></span>): <span class="built_in">number</span>[][] &#123;</span><br><span class="line">        <span class="keyword">function</span> <span class="title function_">backtracking</span>(<span class="params">n:<span class="built_in">number</span>,k:<span class="built_in">number</span>,startIndex:<span class="built_in">number</span>,temArr:<span class="built_in">number</span>[]</span>):<span class="built_in">void</span>&#123;<span class="comment">//startIndex是记载每次																		组合子集的起始值,temArr是记录每一个正确结果</span></span><br><span class="line">            <span class="keyword">if</span>(k===temArr.<span class="property">length</span>)&#123;<span class="comment">//k===temArr.length时，证明可以中止回溯了</span></span><br><span class="line">                result.<span class="title function_">push</span>(temArr.<span class="title function_">slice</span>());</span><br><span class="line">                <span class="keyword">return</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">let</span> i=startIndex;i&lt;=n-(k-temArr.<span class="property">length</span>)+<span class="number">1</span>;i++)&#123;<span class="comment">//i&lt;=n-(k-temArr.length)+1是剪枝操作,比如																			n=4,k=3那么i&gt;2之后的回溯就没有必要了</span></span><br><span class="line">                temArr.<span class="title function_">push</span>(i);</span><br><span class="line">                <span class="title function_">backtracking</span>(n,k,i+<span class="number">1</span>,temArr);</span><br><span class="line">                temArr.<span class="title function_">pop</span>();<span class="comment">//经过backtracking后，需要进行回溯，回溯的操作就是把之前加进来的值弹出去，让新的值可以进入</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;    </span><br><span class="line">        <span class="keyword">let</span> <span class="attr">result</span>:<span class="built_in">number</span>[][]=[];<span class="comment">//记录最终答案</span></span><br><span class="line">        <span class="title function_">backtracking</span>(n,k,<span class="number">1</span>,[]);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://myblog-eta-three.vercel.app">高琪</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://myblog-eta-three.vercel.app/article/Leecode-%E5%9B%9E%E6%BA%AF-%E7%BB%84%E5%90%88.html">https://myblog-eta-three.vercel.app/article/Leecode-%E5%9B%9E%E6%BA%AF-%E7%BB%84%E5%90%88.html</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/article/Leecode-%E5%9B%9E%E6%BA%AF-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8CIII.html"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Leecode 回溯 组合总和III</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/article/Leecode-%E4%BA%8C%E5%8F%89%E6%A0%91-%E6%8A%8A%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E8%BD%AC%E4%B8%BA%E7%B4%AF%E5%8A%A0%E6%A0%91.html"><span class="paginator-prev__text">Leecode 二叉树 把二叉搜索树转为累加树</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">
+          描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">
+          思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E6%BA%AF%E6%B3%95%E4%B8%89%E9%83%A8%E6%9B%B2"><span class="toc-number">2.1.</span> <span class="toc-text">
+          回溯法三部曲</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.2.</span> <span class="toc-text">
+          总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%AA%E6%9E%9D%E4%BC%98%E5%8C%96"><span class="toc-number">2.3.</span> <span class="toc-text">
+          剪枝优化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">
+          代码</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://pic2.zhimg.com/v2-86116449634292f991d2b38eaf7f7509_r.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">记录点滴</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">35</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2023</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>高琪</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>
