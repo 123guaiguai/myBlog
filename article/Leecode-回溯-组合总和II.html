@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.7.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.7.0" type="image/png" sizes="32x32"><meta name="description" content="引用自代码随想录                     描述       给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。 candidates 中的每个数字在每个组合中只能使用一次。 说明： 所有数字（包括目标数）都是正整数。解集不能包含重复的组合。   示例 1: 输入: candidates &#x3D; [1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leecode 回溯 组合总和II">
+<meta property="og:url" content="https://myblog-eta-three.vercel.app/article/Leecode-%E5%9B%9E%E6%BA%AF-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8CII.html">
+<meta property="og:site_name" content="行者一路">
+<meta property="og:description" content="引用自代码随想录                     描述       给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。 candidates 中的每个数字在每个组合中只能使用一次。 说明： 所有数字（包括目标数）都是正整数。解集不能包含重复的组合。   示例 1: 输入: candidates &#x3D; [1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://camo.githubusercontent.com/19c848f21bf2791ae46871015f703b614fe19789da7cd68c9515a050266a8089/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303233303331303030303931382e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/cc80c17d21108618deaa8112e908cbd081a519abbf66aea13b21e02afcc8a3c9/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303233303331303030303935342e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/f09b6b10f352189334493767bea6c55451cb0a05c8f86a7df4ea4b7937ea5563/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303232313032313136333831322e706e67">
+<meta property="article:published_time" content="2023-04-08T08:18:24.000Z">
+<meta property="article:modified_time" content="2023-04-08T08:59:55.719Z">
+<meta property="article:author" content="高琪">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/19c848f21bf2791ae46871015f703b614fe19789da7cd68c9515a050266a8089/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303233303331303030303931382e706e67"><title>Leecode 回溯 组合总和II | 行者一路</title><link ref="canonical" href="https://myblog-eta-three.vercel.app/article/Leecode-%E5%9B%9E%E6%BA%AF-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8CII.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.7.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.2"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">行者一路</div><div class="header-banner-info__subtitle">我的博客记录</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Leecode 回溯 组合总和II</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2023-04-08</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2023-04-08</span></span></div></header><div class="post-body"><p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/youngyangyang04/leetcode-master/blob/master/problems/0040.%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8CII.md" >引用自代码随想录</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h3 id="描述"   >
+          <a href="#描述" class="heading-link"><i class="fas fa-link"></i></a><a href="#描述" class="headerlink" title="描述"></a>描述</h3>
+      <p>给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。</p>
+<p>candidates 中的每个数字在每个组合中只能使用一次。</p>
+<p>说明： 所有数字（包括目标数）都是正整数。解集不能包含重复的组合。 </p>
+<ul>
+<li>示例 1:</li>
+<li>输入: candidates = [10,1,2,7,6,1,5], target = 8,</li>
+<li>所求解集为:</li>
+</ul>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  [1, 7],</span><br><span class="line">  [1, 2, 5],</span><br><span class="line">  [2, 6],</span><br><span class="line">  [1, 1, 6]</span><br><span class="line">]</span><br></pre></td></tr></table></div></figure>
+
+<ul>
+<li>示例 2:</li>
+<li>输入: candidates = [2,5,2,1,2], target = 5,</li>
+<li>所求解集为:</li>
+</ul>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  [1,2,2],</span><br><span class="line">  [5]</span><br><span class="line">]</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="思路"   >
+          <a href="#思路" class="heading-link"><i class="fas fa-link"></i></a><a href="#思路" class="headerlink" title="思路"></a>思路</h3>
+      <p>这道题目和组合总和有如下区别：</p>
+<ol>
+<li>本题candidates 中的每个数字在每个组合中只能使用一次。</li>
+<li>本题数组candidates的元素是有重复的，而组合总和是无重复元素的数组candidates</li>
+</ol>
+<p>最后本题和组合总和一样，解集不能包含重复的组合。</p>
+<p><strong>本题的难点在于区别2中：集合（数组candidates）有重复元素，但还不能有重复的组合</strong>。</p>
+<p>那可以这么想：把所有组合求出来，再用set或者map去重，但这么做很容易超时！</p>
+<p>所以要在搜索的过程中就去掉重复组合。</p>
+<p>写这类代码经常在去重的问题上想不明白，其实很多题解也没有讲清楚，反正代码是能过的，感觉是那么回事，稀里糊涂的先把题目过了。</p>
+<p>这个去重为什么很难理解呢，<strong>所谓去重，其实就是使用过的元素不能重复选取。</strong> 这么一说好像很简单！</p>
+<p>都知道组合问题可以抽象为树形结构，那么“使用过”在这个树形结构上是有两个维度的，一个维度是同一树枝上使用过，一个维度是同一树层上使用过。<strong>没有理解这两个层面上的“使用过” 是造成大家没有彻底理解去重的根本原因。</strong></p>
+<p>那么问题来了，我们是要同一树层上使用过，还是同一树枝上使用过呢？</p>
+<p>回看一下题目，元素在同一个组合内是可以重复的，怎么重复都没事，但两个组合不能相同。</p>
+<p><strong>所以我们要去重的是同一树层上的“使用过”，同一树枝上的都是一个组合里的元素，不用去重</strong>。</p>
+<p>为了理解去重我们来举一个例子，candidates = [1, 1, 2], target = 3，（方便起见candidates已经排序了）</p>
+<p><strong>强调一下，树层去重的话，需要对数组排序！</strong></p>
+<p>选择过程树形结构如图所示：</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/19c848f21bf2791ae46871015f703b614fe19789da7cd68c9515a050266a8089/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303233303331303030303931382e706e67"><img src="https://camo.githubusercontent.com/19c848f21bf2791ae46871015f703b614fe19789da7cd68c9515a050266a8089/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303233303331303030303931382e706e67" alt="40.组合总和II"></a></p>
+<p>可以看到图中，每个节点多加了used数组，这个used数组下面会重点介绍。</p>
+<p>前面我们提到：要去重的是“同一树层上的使用过”，如何判断同一树层上元素（相同的元素）是否使用过了呢。</p>
+<p>**如果<code>candidates[i] == candidates[i - 1]</code> 并且 <code>used[i - 1] == false</code>，就说明：前一个树枝，使用了candidates[i - 1]，也就是说同一树层使用过candidates[i - 1]**。</p>
+<p>此时for循环里就应该做continue的操作。</p>
+<p>这块比较抽象，如图：</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/cc80c17d21108618deaa8112e908cbd081a519abbf66aea13b21e02afcc8a3c9/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303233303331303030303935342e706e67"><img src="https://camo.githubusercontent.com/cc80c17d21108618deaa8112e908cbd081a519abbf66aea13b21e02afcc8a3c9/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303233303331303030303935342e706e67" alt="40.组合总和II1"></a></p>
+<p>我在图中将used的变化用橘黄色标注上，可以看出在candidates[i] == candidates[i - 1]相同的情况下：</p>
+<ul>
+<li>used[i - 1] == true，说明同一树枝candidates[i - 1]使用过</li>
+<li>used[i - 1] == false，说明同一树层candidates[i - 1]使用过</li>
+</ul>
+<p>可能有的录友想，为什么 used[i - 1] == false 就是同一树层呢，因为同一树层，used[i - 1] == false 才能表示，当前取的 candidates[i] 是从 candidates[i - 1] 回溯而来的。</p>
+<p>而 used[i - 1] == true，说明是进入下一层递归，去下一个数，所以是树枝上，如图所示：</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/f09b6b10f352189334493767bea6c55451cb0a05c8f86a7df4ea4b7937ea5563/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303232313032313136333831322e706e67"><img src="https://camo.githubusercontent.com/f09b6b10f352189334493767bea6c55451cb0a05c8f86a7df4ea4b7937ea5563/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303232313032313136333831322e706e67" alt="img"></a></p>
+<p><strong>这块去重的逻辑很抽象，网上搜的题解基本没有能讲清楚的，如果大家之前思考过这个问题或者刷过这道题目，看到这里一定会感觉通透了很多！</strong></p>
+<p>那么单层搜索的逻辑代码如下：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">for (int i = startIndex; i &lt; candidates.size() &amp;&amp; sum + candidates[i] &lt;= target; i++) &#123;</span><br><span class="line">    // used[i - 1] == true，说明同一树枝candidates[i - 1]使用过</span><br><span class="line">    // used[i - 1] == false，说明同一树层candidates[i - 1]使用过</span><br><span class="line">    // 要对同一树层使用过的元素进行跳过</span><br><span class="line">    if (i &gt; 0 &amp;&amp; candidates[i] == candidates[i - 1] &amp;&amp; used[i - 1] == false) &#123;</span><br><span class="line">        continue;</span><br><span class="line">    &#125;</span><br><span class="line">    sum += candidates[i];</span><br><span class="line">    path.push_back(candidates[i]);</span><br><span class="line">    used[i] = true;</span><br><span class="line">    backtracking(candidates, target, sum, i + 1, used); // 和39.组合总和的区别1：这里是i+1，每个数字在每个组合中只能使用一次</span><br><span class="line">    used[i] = false;</span><br><span class="line">    sum -= candidates[i];</span><br><span class="line">    path.pop_back();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="代码"   >
+          <a href="#代码" class="heading-link"><i class="fas fa-link"></i></a><a href="#代码" class="headerlink" title="代码"></a>代码</h3>
+      <figure class="highlight tsx"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">combinationSum2</span>(<span class="params">candidates: <span class="built_in">number</span>[], target: <span class="built_in">number</span></span>): <span class="built_in">number</span>[][] &#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">backTrackig</span>(<span class="params">candidates:<span class="built_in">number</span>[],target:<span class="built_in">number</span>,startIndex:<span class="built_in">number</span>,sum:<span class="built_in">number</span>,route:<span class="built_in">number</span>[]</span>):<span class="built_in">void</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sum&gt;target)&#123;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(sum===target)&#123;</span><br><span class="line">            result.<span class="title function_">push</span>(route.<span class="title function_">slice</span>());</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i=startIndex,len=candidates.<span class="property">length</span>;i&lt;len;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i&gt;startIndex&amp;&amp;candidates[i-<span class="number">1</span>]===candidates[i])&#123;<span class="comment">//去重</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">let</span> temp=candidates[i];</span><br><span class="line">            route.<span class="title function_">push</span>(temp);</span><br><span class="line">            <span class="title function_">backTrackig</span>(candidates,target,i+<span class="number">1</span>,sum+temp,route);</span><br><span class="line">            route.<span class="title function_">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> <span class="attr">result</span>:<span class="built_in">number</span>[][]=[];</span><br><span class="line">    candidates.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b);</span><br><span class="line">    <span class="title function_">backTrackig</span>(candidates,target,<span class="number">0</span>,<span class="number">0</span>,[]);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://myblog-eta-three.vercel.app">高琪</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://myblog-eta-three.vercel.app/article/Leecode-%E5%9B%9E%E6%BA%AF-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8CII.html">https://myblog-eta-three.vercel.app/article/Leecode-%E5%9B%9E%E6%BA%AF-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8CII.html</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/article/Leecode-%E5%9B%9E%E6%BA%AF-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C.html"><span class="paginator-prev__text">Leecode 回溯 组合总和</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">
+          描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">
+          思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">
+          代码</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://pic2.zhimg.com/v2-86116449634292f991d2b38eaf7f7509_r.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">记录点滴</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">37</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2023</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>高琪</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>
